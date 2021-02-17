@@ -1,0 +1,10 @@
+cmake_minimum_required(VERSION 3.16)
+project(Calculadora_cientifica2_0 C)
+
+set(CMAKE_C_STANDARD 99)
+
+
+add_executable(Calculadora_cientifica2_0 main.c Interface.c Interface.h TAD_calculadora.c TAD_calculadora.h TAD_Fila_da_expressao.c TAD_Fila_da_expressao.h TAD_fila_de_resultados.c TAD_fila_de_resultados.h TAD_fila_de_operacoes.c TAD_fila_de_operacoes.h TAD_fila_de_letras.c TAD_fila_de_letras.h TAD_fila_de_expoentes.c TAD_fila_de_expoentes.h Fila_principal_de_inteiros.c Fila_principal_de_inteiros.h Fila_principal_de_caracteres.c Fila_principal_de_caracteres.h Fila_de_operacoes_entre_filas.c Fila_de_operacoes_entre_filas.h Fila_de_fila_de_inteiros_e_caracteres.c Fila_de_fila_de_inteiros_e_caracteres.h Divisao_de_expressoes.c Divisao_de_expressoes.h)
+
+
+target_link_libraries(Calculadora_cientifica2_0 m)

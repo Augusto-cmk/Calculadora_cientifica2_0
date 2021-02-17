@@ -1,0 +1,44 @@
+double Analise_da_divisao(Primeira_expressao *Exp1,Segunda_expressao *Exp2,Limite *X){//Está muito errada ... precisa usar fatoração e melhorar a forma de identificação de inexistencia de limite
+    int inteiro = X->Tendencia +1 ;double Proporcao=Exp1->Valores.initial->Valor/Exp2->Valores.initial->Valor;
+    double Primeiro;
+    double Segundo = Particiona(&Exp2->Valores,&Exp2->Expoentes,&Exp2->Operacoes,X->Tendencia);
+    double Diferenca_entre_expoentes = Exp1->Expoentes.initial->expoente - Exp2->Expoentes.initial->expoente;
+    double Inteiro_de_analise1,Inteiro_de_analise2;int valor_acertado,int_segun,int_prime,confere;char resposta;
+    double Resultado_correto=0;double raix_aproxima,inteiro_aproxima,resultado_aproxima,final_aroxima;
+    if(Segundo == 0){
+        Primeiro = Particiona(&Exp1->Valores,&Exp1->Expoentes,&Exp1->Operacoes,inteiro);int_prime=Particiona(&Exp1->Valores,&Exp1->Expoentes,&Exp1->Operacoes,inteiro+1);
+        Segundo = Particiona(&Exp2->Valores,&Exp2->Expoentes,&Exp2->Operacoes,inteiro);int_segun=Particiona(&Exp2->Valores,&Exp2->Expoentes,&Exp2->Operacoes,inteiro+1);
+        confere=int_prime%int_segun;
+        if(confere!=0){
+            printf("\nlimite inexistente\n");
+            printf("Deseja continuar o calculo ?\n S->sim , N->não\n->");scanf("%s",&resposta);
+            if(resposta=='S') {
+                Questions();
+            }
+            else{
+                exit(0);
+            }
+        }
+        Inteiro_de_analise1 = Primeiro / Segundo;
+        raix_aproxima = pow(Inteiro_de_analise1, 1/Diferenca_entre_expoentes);
+        if(raix_aproxima<Inteiro_de_analise1){
+            Inteiro_de_analise2 = raix_aproxima - inteiro * Proporcao;
+            Resultado_correto = pow(Inteiro_de_analise2 + X->Tendencia * Proporcao, Diferenca_entre_expoentes);
+            if(Inteiro_de_analise2<0){
+                inteiro_aproxima = raix_aproxima-1 - inteiro * Proporcao;
+            }
+            else{
+                inteiro_aproxima = raix_aproxima+1 - inteiro * Proporcao;
+            }
+            resultado_aproxima = pow(inteiro_aproxima, Diferenca_entre_expoentes);
+            valor_acertado = Resultado_correto + (resultado_aproxima/2);
+            final_aroxima = valor_acertado - X->Tendencia;
+            Resultado_correto =final_aroxima;
+        }
+        else {
+            Inteiro_de_analise2 = pow(Inteiro_de_analise1, 1/Diferenca_entre_expoentes) - inteiro * Proporcao;
+            Resultado_correto = pow(Inteiro_de_analise2 + X->Tendencia * Proporcao, Diferenca_entre_expoentes);
+        }
+    }
+    return Resultado_correto;
+}

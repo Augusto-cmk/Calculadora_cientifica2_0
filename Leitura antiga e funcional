@@ -1,0 +1,49 @@
+void Leitura_da_expressao(Limite *X){
+    FILE *file;
+    Inicia(&X->exp.Fila_da_Expressao);
+    char Nome,Nome_raiz[30];double varia = 0.00001;double tendencia = X->Tendencia;double valor_real;
+    strcpy(Nome_raiz,"/home/pedro/Área de Trabalho/");
+    printf("\nDigite o nome do arquivo que deseja ler da area de trabalho:");scanf("%s",&Nome);
+    strcat(Nome_raiz,&Nome);
+    file=fopen(Nome_raiz,"r");char resto;
+    double numero;char caractere;int Posicao=0;char operacao;
+    if(file==NULL){
+        printf("\nArquivo nao existe\n");printf("Deseja continuar? S para sim e N para não:");scanf("%s",&resto);
+        if(resto=='S'){
+            Questions();
+        }
+        else{
+            exit(0);
+        }
+    }
+    while (!feof(file)) {
+        Fila_pricipal_de_caracteres aux1;
+        Fila_pricipal_de_inteiros aux2;
+        Inicia_fila_principal_de_caracteres(&aux1);
+        Inicia_fila_principal_de_inteiros(&aux2);
+        while(caractere!='\n') {
+            fscanf(file, "%lf%c", &numero, &caractere);
+            InsereInteiros(&aux2,numero,Posicao);
+            InsereCaractere(&aux1,caractere,Posicao);
+            Posicao++;
+        }
+        InsereFila(&X->exp.Fila_da_Expressao.Filas,&aux2,&aux1);
+        fscanf(file,"%c",&operacao);
+        if(!feof(file))
+            InsereOperacao_entre_filas(&X->exp.Fila_da_Expressao.Operacoes_entre_filas, operacao);
+        Posicao=0;
+        caractere=operacao;
+    }
+    fclose(file);
+    X->Tendencia = tendencia-varia;
+    X->esquerda = Primeira_analise(X);
+    X->Tendencia = tendencia+varia;
+    X->Direita = Primeira_analise(X);
+    if(X->Direita-X->esquerda < 1){
+        X->Tendencia = tendencia;
+        valor_real = Primeira_analise(X);
+        printf("Limite existente=%lf",valor_real);
+    }
+    else
+        printf("limite inexistente");
+}

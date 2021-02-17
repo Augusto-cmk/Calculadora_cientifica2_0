@@ -1,0 +1,47 @@
+double Analise_da_divisao(Estrutura_expressao *Exp1,Estrutura_expressao *Exp2,Limite *X){//Está muito errada ... precisa usar fatoração e melhorar a forma de identificação de inexistencia de limite
+    double Resultado_da_divisao;
+
+    return Resultado_da_divisao;
+}
+Estrutura_expressao Fatora (Estrutura_expressao *Exp){
+    int Contador = 0;
+    double Valor,Expoente;char letra;
+    int auxiliar;
+    int Confirma = 0;
+    double Valor_vetor[Exp->Valores.Tamanho];
+    char Letra_vetor[Exp->Letras.Tamanho];
+    Estrutura_expressao Resultado;
+    Fila_de_valores Valores;Fila_de_letras Letras; Fila_de_expoentes Expoentes; Fila_de_operacoes Operacoes;
+    Inicia(&Valores);Inicia_fila_de_letras(&Letras);Inicia_fila_de_expoentes(&Expoentes);Inicia_fila_de_operacoes(&Operacoes);
+    Ponteiro_da_fila_de_valores Aponta_valor = Exp->Valores.initial;
+    Poteiro_da_fila_de_letras Aponta_letras = Exp->Letras.initial;
+    Ponteiro_da_fila_de_expoentes Aponta_expoente = Exp->Expoentes.initial;
+    Ponteiro_da_fila_de_operacoes Aponta_operacao = Exp->Operacoes.initial;
+    while (Aponta_valor!=NULL){
+        Valor_vetor[Contador] = Aponta_valor->Valor;
+        Aponta_valor = Aponta_valor->prox;
+        Contador++;
+    }
+    Contador = 0;
+    while (Aponta_letras!=NULL){
+        Letra_vetor [Contador] = Aponta_letras->letra;
+        Aponta_letras = Aponta_letras->prox;
+        Contador++;
+    }
+    Valor = Valor_vetor[0];
+    letra = Letra_vetor[0];
+    for(int i = 0;i<Exp->Valores.Tamanho;i++){
+        auxiliar = Valor_vetor[i]/Valor;
+        if(((Valor_vetor[i]/Valor)-auxiliar) == 0){//divisivel sem resto
+            printf("Esse %f é multiplo desse %f\n",Valor_vetor[i],Valor);
+        }
+        if((i == Exp->Valores.Tamanho-1) && Confirma<Exp->Valores.Tamanho){
+            Confirma++;
+            i = 0;
+            Valor = Valor_vetor[Confirma];
+        }
+    }
+    //for(int i = 0;i<Exp->Letras.Tamanho;i++){
+
+    //}
+}
