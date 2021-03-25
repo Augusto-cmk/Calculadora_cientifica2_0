@@ -52,7 +52,9 @@ double Analise_da_divisao(Estrutura_expressao *Exp1,Estrutura_expressao *Exp2,Li
                 Determina_fatores(Dividendo,Divisor);
             }
             else{
-                //inteiro
+                Dividendo = Vetor_de_valores_para_analise[i] * 1000000;
+                Divisor = 1000000;
+                Determina_fatores(Dividendo,Divisor);
             }
         }
     }
